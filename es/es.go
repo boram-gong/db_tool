@@ -31,7 +31,6 @@ func CreateIndex(cli *elastic.Client, index string, mapping string) error {
 		return err
 	}
 	if !exists {
-		// 如果不存在，就创建
 		createIndex, err := cli.CreateIndex(index).BodyString(mapping).Do(ctx)
 		if err != nil {
 			return err
