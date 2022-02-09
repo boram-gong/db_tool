@@ -1,4 +1,4 @@
-module db_tool
+module github.com/boram-gong/db_tool
 
 go 1.16
 
