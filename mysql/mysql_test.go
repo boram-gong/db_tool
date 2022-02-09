@@ -8,7 +8,7 @@ import (
 
 func TestMysql(t *testing.T) {
 	cfg := &db.CfgDB{
-		Host:        "114.67.66.221",
+		Host:        "114.67.66.0",
 		Port:        3456,
 		User:        "root",
 		Password:    "1qazZSE$",
