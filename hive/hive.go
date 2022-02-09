@@ -3,8 +3,9 @@ package hive
 import (
 	"context"
 	"database/sql"
-	db "db_tool"
+
 	"github.com/beltran/gohive"
+	db "github.com/boram-gong/db_tool"
 )
 
 type HiveDB struct {

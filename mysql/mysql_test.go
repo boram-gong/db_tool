@@ -1,9 +1,10 @@
 package mysql
 
 import (
-	db "db_tool"
 	"fmt"
 	"testing"
+
+	db "github.com/boram-gong/db_tool"
 )
 
 func TestMysql(t *testing.T) {

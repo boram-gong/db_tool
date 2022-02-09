@@ -1,14 +1,15 @@
 package pg
 
 import (
-	db "db_tool"
 	"fmt"
 	"testing"
+
+	db "github.com/boram-gong/db_tool"
 )
 
 func TestMysql(t *testing.T) {
 	cfg := &db.CfgDB{
-		Host:        "172.2.0.0",
+		Host:        "172.2.0.21",
 		Port:        5436,
 		User:        "test_gyx",
 		Password:    "wayzpg_gyx",

@@ -2,11 +2,12 @@ package pg
 
 import (
 	"database/sql"
-	db "db_tool"
 	"fmt"
+	"time"
+
+	db "github.com/boram-gong/db_tool"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
-	"time"
 )
 
 func NewPgClient(pgCfg *db.CfgDB) db.DB {

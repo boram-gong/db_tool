@@ -2,11 +2,12 @@ package mysql
 
 import (
 	"database/sql"
-	db "db_tool"
 	"fmt"
+	"time"
+
+	db "github.com/boram-gong/db_tool"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
-	"time"
 )
 
 func NewMysqlClient(cfg *db.CfgDB) db.DB {
