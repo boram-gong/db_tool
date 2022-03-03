@@ -69,7 +69,7 @@ func MustQuery(cli *elastic.Client, index string, group QueryGroup, onlyTerm boo
 	}
 	if len(group.Match) != 0 && !onlyTerm {
 		for k, v := range group.Match {
-			query = append(query, elastic.NewMatchQuery(k, v))
+			query = append(query, elastic.NewFuzzyQuery(k, v))
 		}
 	}
 	if len(query) != 0 {
@@ -103,7 +103,7 @@ func MultiMustQuery(cli *elastic.Client, index string, groups []QueryGroup, only
 		}
 		if len(group.Match) != 0 && !onlyTerm {
 			for k, v := range group.Match {
-				query = append(query, elastic.NewMatchQuery(k, v))
+				query = append(query, elastic.NewFuzzyQuery(k, v))
 			}
 		}
 		if len(query) != 0 {
