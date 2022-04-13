@@ -10,12 +10,12 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-func NewMysqlClient(cfg *db.CfgDB) db.DB {
+func NewMysqlClient(cfg *db.CfgDB) (db.DB, error) {
 	cli, err := NewMysql(cfg)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	return &MClient{cli}
+	return &MClient{cli}, nil
 }
 
 func NewMysql(cfg *db.CfgDB) (*sqlx.DB, error) {

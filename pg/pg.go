@@ -10,12 +10,12 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func NewPgClient(pgCfg *db.CfgDB) db.DB {
+func NewPgClient(pgCfg *db.CfgDB) (db.DB, error) {
 	cli, err := NewPostgreDB(pgCfg)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	return &PClient{cli}
+	return &PClient{cli}, nil
 }
 
 func NewPostgreDB(cfg *db.CfgDB) (*sqlx.DB, error) {
