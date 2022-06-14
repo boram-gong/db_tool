@@ -3,14 +3,14 @@ package mysql
 import (
 	"database/sql"
 	"fmt"
+	"github.com/boram-gong/db_tool/common"
 	"time"
 
-	db "github.com/boram-gong/db_tool"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
 
-func NewMysqlClient(cfg *db.CfgDB) (db.DB, error) {
+func NewMysqlClient(cfg *common.CfgDB) (*MClient, error) {
 	cli, err := NewMysql(cfg)
 	if err != nil {
 		return nil, err
@@ -18,7 +18,7 @@ func NewMysqlClient(cfg *db.CfgDB) (db.DB, error) {
 	return &MClient{cli}, nil
 }
 
-func NewMysql(cfg *db.CfgDB) (*sqlx.DB, error) {
+func NewMysql(cfg *common.CfgDB) (*sqlx.DB, error) {
 	dbURI := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?loc=Local&parseTime=true",
 		cfg.User,
 		cfg.Password,
@@ -46,7 +46,7 @@ type MClient struct {
 	mClient *sqlx.DB
 }
 
-func (cli *MClient) QueryX(query string, args ...interface{}) (db.Scanner, error) {
+func (cli *MClient) QueryX(query string, args ...interface{}) (common.Scanner, error) {
 	return cli.mClient.Queryx(query, args...)
 }
 

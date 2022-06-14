@@ -1,44 +1,9 @@
-package db
+package common
 
 import (
-	"database/sql"
-	"errors"
 	"fmt"
-	"github.com/boram-gong/db_tool/mysql"
-	"github.com/boram-gong/db_tool/pg"
 	"strconv"
 )
-
-type CfgDB struct {
-	Host        string `yaml:"Host"`
-	Port        int    `yaml:"Port"`
-	User        string `yaml:"User"`
-	Password    string `yaml:"Password"`
-	Database    string `yaml:"Database"`
-	MaxIdleConn int    `yaml:"MaxIdleConn"`
-	MaxOpenConn int    `yaml:"MaxOpenConn"`
-}
-
-func NewDbClient(dbType string, cfg *CfgDB) (DB, error) {
-	switch dbType {
-	case "postgres":
-		return pg.NewPgClient(cfg)
-	case "mysql":
-		return mysql.NewMysqlClient(cfg)
-	}
-	return nil, errors.New("db type err")
-}
-
-type DB interface {
-	QueryX(query string, args ...interface{}) (Scanner, error)
-	Exec(query string, args ...interface{}) (sql.Result, error)
-}
-
-type Scanner interface {
-	Next() bool
-	MapScan(dest map[string]interface{}) error
-	Close() error
-}
 
 func Interface2Map(data interface{}) map[string]interface{} {
 	switch data.(type) {

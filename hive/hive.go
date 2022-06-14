@@ -3,16 +3,16 @@ package hive
 import (
 	"context"
 	"database/sql"
+	"github.com/boram-gong/db_tool/common"
 
 	"github.com/beltran/gohive"
-	db "github.com/boram-gong/db_tool"
 )
 
 type HiveDB struct {
 	con *gohive.Connection
 }
 
-func NewHiveClient(hiveCfg *db.CfgDB) db.DB {
+func NewHiveClient(hiveCfg *common.CfgDB) (*HiveDB, error) {
 	conCfg := gohive.NewConnectConfiguration()
 	conCfg.Database = hiveCfg.Database
 	conCfg.HiveConfiguration = make(map[string]string)
@@ -22,12 +22,12 @@ func NewHiveClient(hiveCfg *db.CfgDB) db.DB {
 	conCfg.Password = hiveCfg.Password
 	conn, err := gohive.Connect(hiveCfg.Host, hiveCfg.Port, "NONE", conCfg)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	return &HiveDB{con: conn}
+	return &HiveDB{con: conn}, nil
 }
 
-func (db *HiveDB) QueryX(query string, args ...interface{}) (db.Scanner, error) {
+func (db *HiveDB) QueryX(query string, args ...interface{}) (common.Scanner, error) {
 	if len(args) > 0 {
 		query = replace(query, args)
 	}

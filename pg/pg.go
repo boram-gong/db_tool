@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"time"
 
-	db "github.com/boram-gong/db_tool"
+	"github.com/boram-gong/db_tool/common"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
 
-func NewPgClient(pgCfg *db.CfgDB) (db.DB, error) {
+func NewPgClient(pgCfg *common.CfgDB) (*PClient, error) {
 	cli, err := NewPostgreDB(pgCfg)
 	if err != nil {
 		return nil, err
@@ -18,7 +18,7 @@ func NewPgClient(pgCfg *db.CfgDB) (db.DB, error) {
 	return &PClient{cli}, nil
 }
 
-func NewPostgreDB(cfg *db.CfgDB) (*sqlx.DB, error) {
+func NewPostgreDB(cfg *common.CfgDB) (*sqlx.DB, error) {
 	dbURI := fmt.Sprintf("user=%v password=%v sslmode=disable dbname=%v host=%v port=%v",
 		cfg.User,
 		cfg.Password,
@@ -46,7 +46,7 @@ type PClient struct {
 	pClient *sqlx.DB
 }
 
-func (cli *PClient) QueryX(query string, args ...interface{}) (db.Scanner, error) {
+func (cli *PClient) QueryX(query string, args ...interface{}) (common.Scanner, error) {
 	return cli.pClient.Queryx(query, args...)
 }
 
