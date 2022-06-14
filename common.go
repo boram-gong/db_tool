@@ -2,7 +2,10 @@ package db
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
+	"github.com/boram-gong/db_tool/mysql"
+	"github.com/boram-gong/db_tool/pg"
 	"strconv"
 )
 
@@ -14,6 +17,16 @@ type CfgDB struct {
 	Database    string `yaml:"Database"`
 	MaxIdleConn int    `yaml:"MaxIdleConn"`
 	MaxOpenConn int    `yaml:"MaxOpenConn"`
+}
+
+func NewDbClient(dbType string, cfg *CfgDB) (DB, error) {
+	switch dbType {
+	case "postgres":
+		return pg.NewPgClient(cfg)
+	case "mysql":
+		return mysql.NewMysqlClient(cfg)
+	}
+	return nil, errors.New("db type err")
 }
 
 type DB interface {
@@ -51,6 +64,8 @@ func Interface2String(data interface{}) string {
 		return ""
 	case string:
 		return data.(string)
+	case []byte:
+		return string(data.([]byte))
 	default:
 		return fmt.Sprintf("%v", data)
 	}
