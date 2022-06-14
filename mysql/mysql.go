@@ -4,10 +4,10 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/boram-gong/db_tool/common"
+	"github.com/jmoiron/sqlx"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
 )
 
 func NewMysqlClient(cfg *common.CfgDB) (*MClient, error) {
