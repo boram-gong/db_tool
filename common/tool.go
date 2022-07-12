@@ -2,6 +2,7 @@ package common
 
 import (
 	"fmt"
+	json "github.com/json-iterator/go"
 	"strconv"
 )
 
@@ -9,6 +10,14 @@ func Interface2Map(data interface{}) map[string]interface{} {
 	switch data.(type) {
 	case map[string]interface{}:
 		return data.(map[string]interface{})
+	case string:
+		var m map[string]interface{}
+		err := json.UnmarshalFromString(data.(string), &m)
+		if err != nil {
+			return nil
+		} else {
+			return m
+		}
 	default:
 		return nil
 	}
