@@ -56,6 +56,9 @@ func Interface2Int(data interface{}) int {
 		return i
 	case float64:
 		return int(data.(float64))
+	case []byte:
+		i, _ := strconv.Atoi(string(data.([]byte)))
+		return i
 	default:
 		return 0
 	}
@@ -71,6 +74,9 @@ func Interface2Float(data interface{}) float64 {
 		return float64(data.(int))
 	case string:
 		i, _ := strconv.ParseFloat(data.(string), 64)
+		return i
+	case []byte:
+		i, _ := strconv.ParseFloat(string(data.([]byte)), 64)
 		return i
 	default:
 		return 0.0
